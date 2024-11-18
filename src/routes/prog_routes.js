@@ -3,7 +3,7 @@ const Program = require("../models/program");
 
 const router = express.Router();
 
-// Get all programs
+
 router.get("/programs", async (req, res) => {
   try {
     const programs = await Program.find({});
@@ -13,7 +13,7 @@ router.get("/programs", async (req, res) => {
   }
 });
 
-// Get program details by ID
+
 router.get("/program-details/:id", async (req, res) => {
   const { id } = req.params;
   try {
