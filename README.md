@@ -20,7 +20,7 @@ Before running the Flutter app, ensure you have the following installed on your 
 #### **Clone the Repository**
 
 ```
-git clone https://github.com/your-username/inner-bhakti.git
+git clone https://github.com/bhaveshj2611/inner-bhakti.git
 cd inner-bhakti
 ```
 
