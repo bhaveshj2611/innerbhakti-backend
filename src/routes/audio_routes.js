@@ -1,28 +1,38 @@
 const express = require("express");
-const Program = require("../models/program");
 const router = express.Router();
+const Program = require("../models/program");
 
-// Get a specific track by Program ID and Track Title
-router.get("/audio/:programId/:trackId", async (req, res) => {
+// API to fetch audio track details with the program image
+router.get("/audio", async (req, res) => {
   try {
-    const { programId, trackId } = req.params;
+    const { programId, trackTitle } = req.query;
 
-    // Find the program
+    if (!programId || !trackTitle) {
+      return res
+        .status(400)
+        .json({ message: "programId and trackTitle are required" });
+    }
+
+    // Find the program by programId
     const program = await Program.findById(programId);
+
     if (!program) {
       return res.status(404).json({ message: "Program not found" });
     }
 
-    // Find the track
-    const track = program.tracks.find((t) => t._id.toString() === trackId);
+    // Find the track by title
+    const track = program.tracks.find((t) => t.title === trackTitle);
+
     if (!track) {
       return res.status(404).json({ message: "Track not found" });
     }
 
-    // Return track details
-    res.json({
+    // Return the track details and program image
+    res.status(200).json({
       title: track.title,
       audioUrl: track.audioUrl,
+      description: track.description,
+      programImage: program.image,
     });
   } catch (error) {
     console.error(error);
